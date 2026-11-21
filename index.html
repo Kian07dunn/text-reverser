@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Reverser</title>
+<style>
+body{font-family:Arial;background:#eef2ff;padding:25px}
+main{max-width:600px;margin:auto;background:white;padding:30px;border-radius:16px}
+textarea{width:100%;height:150px;padding:15px;box-sizing:border-box;border:1px solid #a5b4fc;border-radius:8px;margin:10px 0}
+button{background:#4f46e5;color:white;padding:12px;border:0;border-radius:8px;cursor:pointer;margin:4px}
+</style>
+</head>
+<body>
+<main>
+<h1>Text Reverser</h1>
+<p>Reverse characters or rearrange words instantly.</p>
+<textarea id="input" placeholder="Enter your text"></textarea>
+<button onclick="reverseText()">Reverse Characters</button>
+<button onclick="reverseWords()">Reverse Words</button>
+<button onclick="clearText()">Clear</button>
+<textarea id="output" placeholder="Result" readonly></textarea>
+<button onclick="copyText()">Copy Result</button>
+<p id="status"></p>
+</main>
+<script>
+function reverseText(){
+ const text=document.getElementById("input").value;
+ const segments=Array.from(new Intl.Segmenter(undefined,{granularity:"grapheme"}).segment(text),x=>x.segment);
+ document.getElementById("output").value=segments.reverse().join("");
+}
+function reverseWords(){
+ const text=document.getElementById("input").value;
+ document.getElementById("output").value=text.trim().split(/\s+/).reverse().join(" ");
+}
+function clearText(){
+ document.getElementById("input").value="";
+ document.getElementById("output").value="";
+ document.getElementById("status").textContent="";
+}
+async function copyText(){
+ try{
+  await navigator.clipboard.writeText(document.getElementById("output").value);
+  document.getElementById("status").textContent="Copied!";
+ }catch{
+  document.getElementById("status").textContent="Please copy manually.";
+ }
+}
+</script>
+</body>
+</html>
