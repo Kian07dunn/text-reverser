@@ -21,3 +21,12 @@ functionality.
 
 Handle spaces and punctuation
 consistently during text processing.
+## Manual Testing Checklist
+
+- [ ] Reverse the characters of a simple word.
+- [ ] Reverse the order of words in a short sentence.
+- [ ] Test spaces, punctuation and the Clear button.
+
+### Test Notes
+
+Record the observed result and any reproducible issue after running the tests.
